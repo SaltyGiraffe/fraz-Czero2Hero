@@ -37,7 +37,7 @@ int output_file(int fd, struct dbheader_t *dbhdr, struct employee_t *employees) 
 	write(fd, dbhdr, sizeof(struct dbheader_t));
 
 	int i = 0;
-	for (i; i < realcount; i++){
+	for (; i < realcount; i++){
 		employees[i].hours = htonl(employees[i].hours);
 		write(fd, &employees[i], sizeof(struct employee_t));
 	}
@@ -90,7 +90,7 @@ int validate_db_header(int fd, struct dbheader_t **headerOut) {
 
 	*headerOut = header;
 
-	return STATUS_SUCCESS
+	return STATUS_SUCCESS;
 }
 
 int create_db_header(int fd, struct dbheader_t **headerOut) {
