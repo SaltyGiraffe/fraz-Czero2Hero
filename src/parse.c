@@ -31,8 +31,8 @@ int output_file(int fd, struct dbheader_t *dbhdr, struct employee_t *employees) 
 	int realcount = dbhdr->count;
 
 	dbhdr->magic = htonl(dbhdr->magic);
-	dbhdr->filesize = htonl(sizeof(struct dbheader_t) + (sizeof(struct employe_t) * realcount));
-	dbhdr->count = htsons(dbhdr->count);
+	dbhdr->filesize = htonl(sizeof(struct dbheader_t));// + (sizeof(struct employe_t) * realcount));
+	dbhdr->count = htons(dbhdr->count);
 	dbhdr->version = htons(dbhdr->version);
 
 	lseek(fd, 0, SEEK_SET);
@@ -45,7 +45,7 @@ int output_file(int fd, struct dbheader_t *dbhdr, struct employee_t *employees) 
 		write(fd, &employees[i], sizeof(struct employee_t));
 	}
 
-	return STATUS_SUCCESS
+	return STATUS_SUCCESS;
 }	
 
 int validate_db_header(int fd, struct dbheader_t **headerOut) {

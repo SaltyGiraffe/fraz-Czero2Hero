@@ -24,6 +24,9 @@ int main(int argc, char *argv[]) {
 	bool list = false;
 	int c;
 
+	int dbfd = -1;
+	struct dbhdr_t *header = NULL;
+
 	while((c = getopt(argc, argv, "nf:p:l")) != -1) {
 		switch (c) {
 			case 'n':
@@ -48,7 +51,7 @@ int main(int argc, char *argv[]) {
 
 	if (filepath == NULL) {
 		printf("filepath is a required argument.\n");
-		print_usage();
+		print_usage(argv);
 
 		return 0;
 	}
@@ -60,10 +63,10 @@ int main(int argc, char *argv[]) {
 			return -1;
 		}
 
-		if (create_db_header(dbfd, &dbhdr) == STATUS_ERROR) {
-			printf("Failed to create database header.\n");
-			return -1;
-		}
+		//if (create_db_header(dbfd, &dbhdr) == STATUS_ERROR) {
+		//	printf("Failed to create database header.\n");
+		//	return -1;
+		//}
 	}
 	else {
 		dbfd = open_db_file(filepath);
@@ -72,10 +75,10 @@ int main(int argc, char *argv[]) {
 			return -1;
 		}
 
-		if (validate_db_header(dbfd, &dbhdr) == STATUS_ERROR) {
-			printf("Failed to validate database header.\n");
-			return -1;
-		}
+		//if (validate_db_header(dbfd, &dbhdr) == STATUS_ERROR) {
+		//	printf("Failed to validate database header.\n");
+		//	return -1;
+		//}
 	}
 
 	printf("Success!\n");
